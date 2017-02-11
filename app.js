@@ -8,12 +8,12 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
 
-io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-        io.emit('chat message', msg);
-        console.log(msg);
-    });
-});
+// io.on('connection', function(socket){
+//     socket.on('chat message', function(msg){
+//         io.emit('chat message', msg);
+//         console.log(msg);
+//     });
+// });
 
 // Chatroom
 
@@ -25,6 +25,7 @@ io.on('connection', function (socket) {
     // when the client emits 'new message', this listens and executes
     socket.on('new message', function (data) {
         // we tell the client to execute 'new message'
+        io.emit('new message', data);
         socket.broadcast.emit('new message', {
             username: socket.username,
             message: data
